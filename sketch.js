@@ -161,6 +161,8 @@ function moveSurfer(){
     if(keyIsDown(DOWN_ARROW)){
     surfer.Y+=surfer.Sp;
   }
+  surfer.X = constrain(surfer.X, 0, width-surfer.W)
+ surfer.Y = constrain(surfer.Y, 0, height-surfer.H)
 
 image(characters[3], surfer.X, surfer.Y, surfer.W, surfer.H);
 }
@@ -214,8 +216,9 @@ function moveAnimals(){
 
 //returns true if surfer's box overlaps with an aimals box
 function checkCollision(a){
-    let xOverlap=surfer.X<a.x+a.sz && a.x< surfer.X+surfer.W;
-  let yOverlap=surfer.Y<a.y+a.sz && a.y<surfer.Y+surfer.H;
+  let m = 5;
+    let xOverlap=surfer.X+m<a.x+a.sz - m && a.x + m < surfer.X+surfer.W - m;
+  let yOverlap=surfer.Y+m<a.y+a.sz - m && a.y +m <surfer.Y+surfer.H - m;
   return xOverlap && yOverlap;
 }
   function endGame (lose){
