@@ -124,6 +124,14 @@ function lose(){
   textStyle(BOLD)
   text("CONTINUE", width/2, height/2+110);
   
+  fill(255,0,0);
+  rect(width/2-100,height/2-130,200,75);
+  
+  fill(255);
+  text("SCORE: " + score, width/2, height/2-75);
+  
+  
+  
   
 }
 //returns true if the mouse is inside a rectange with parameters (bx, by, bw, bh)
