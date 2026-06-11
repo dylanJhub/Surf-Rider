@@ -11,6 +11,8 @@ let gamebg;
 let scroll = 0;
 var lives = 3;
 let heartImg;
+let crashSound;
+let beachSound;
 
 //image obstained from [freepik.com]
 var characters = ["surfer.1.png", "Surfer.2.png", "surfer.3.png", "surfer.4.png"];
@@ -51,6 +53,9 @@ function preload(){
      heartImg = loadImage("heart-pixelated-with-message.png");
      for (let i = 0; i< images.length; i++){
        animalimages[i] = loadImage(images[i]);
+       
+       crashSound = loadSound("chroma_mod-resignation-animal-crossing-sfx-233486.mp3");
+       beachSound = loadSound("u_jt8c4ibcgy-beach-sound-with-seagulls-218923.mp3");
      }
   }
 function setup() {
@@ -67,6 +72,10 @@ function draw() {
 }
 
 function start(){
+  if (!beachSound.isPlaying()) {
+    beachSound.setVolume(0.3);
+    beachSound.loop();
+  }
    image(startbg, 0, 0, width, height);
   image(characters[0], width/2 + 75, height/2+25, 200, 200);
   image(characters[1], width/2 - 270, height/2+25, 200, 200);
@@ -94,6 +103,7 @@ function start(){
   text("Use arrow keys to move", 400, 50);
   text("Avoid all animals to get a high score", 400, 60);
 }
+
 
 //moves the water background upward to simulate foward movement
 //Updates the surfer and animals
@@ -148,6 +158,7 @@ function lose(){
 //Starts game when user presses start button and resets everything when user presets reset in the lose window
 //Input: user clicks start to continue button triggering a game state change
 function mousePressed() {
+      beachSound.stop(); // 🌊 STOP start screen sound
   if (state === "start") {
     if (checkClick(width/2 - 150, height/2 - 50, 300, 100)) {
       state = "game";
@@ -209,6 +220,8 @@ function moveAnimals(){
     a.y=a.y-a.sp;
     //selection: checks if animal collides with surfer
     if (checkCollision(a)) {
+        crashSound.stop();
+  crashSound.play();
       lives--   
     a.y = random(H, H * 2);
       a.x = random(0, W);
