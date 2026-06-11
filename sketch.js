@@ -87,6 +87,12 @@ function start(){
   textSize(100)
   textStyle(ITALIC);
   text("Start", width/2, height/2+35);
+  
+  fill(255,0,0);
+  textSize(10);
+  text("Instructions:", 400, 40)
+  text("Use arrow keys to move", 400, 50);
+  text("Avoid all animals to get a high score", 400, 60);
 }
 
 //moves the water background upward to simulate foward movement
